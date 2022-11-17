@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ios_app/components/app_themes.dart';
+import 'package:ios_app/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppThemes.lightTheme,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
       builder: (context, child) => MediaQuery(
 	      child: child!,
 	      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
