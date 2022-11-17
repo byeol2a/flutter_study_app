@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ios_app/components/app_themes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'GmarketSansTTF',
-      ),
+      theme: AppThemes.lightTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       builder: (context, child) => MediaQuery(
 	      child: child!,
