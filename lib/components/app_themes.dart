@@ -9,6 +9,7 @@ class AppThemes {
         scaffoldBackgroundColor: Colors.white, //백그라운드 깔리는 게 회색빛이라 하얗게..
         splashColor: Colors.white, // 클릭했을 때 나오는 컬러
         textTheme: _textTheme,
+        appBarTheme: _appBarTheme,
         brightness: Brightness.light, //light가 디폴트인데, dart로 바꾸면 대비가 생김
       );
   static ThemeData get darkTheme => ThemeData(
@@ -19,6 +20,14 @@ class AppThemes {
         textTheme: _textTheme,
         brightness: Brightness.dark, //light가 디폴트인데, dart로 바꾸면 대비가 생김
       );
+
+  static const AppBarTheme _appBarTheme = AppBarTheme(
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: AppColors.primaryColor,
+    ),
+    elevation: 0,
+  );
 
   static const TextTheme _textTheme = TextTheme(
     headline4: TextStyle(
