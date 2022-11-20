@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ios_app/components/app_constants.dart';
 
 class AddMedicinePage extends StatefulWidget {
@@ -11,12 +14,14 @@ class AddMedicinePage extends StatefulWidget {
 
 class _AddMedicinePageState extends State<AddMedicinePage> {
   final _nameController = TextEditingController();
+  File? _pickedImage;
 
   @override
   void dispose() {
     _nameController.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -31,27 +36,43 @@ class _AddMedicinePageState extends State<AddMedicinePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('어떤 약이에요?',
-              style: Theme.of(context).textTheme.headlineMedium,
+              Text(
+                '어떤 약이에요?',
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: largeSpace),
-        
               Center(
                 child: CircleAvatar(
                   radius: 40,
                   child: CupertinoButton(
-                    onPressed: () {},
-                    child: const Icon(
+                    onPressed: () {
+                      ImagePicker()
+                          .pickImage(source: ImageSource.camera) // 시뮬레이터에서는 카메라가 안먹는다.
+                          .then((xfile) {
+                            if (xfile == null) return;
+                            setState(() {
+                              _pickedImage = File(xfile.path);
+                            }); 
+                          });
+                    },
+                    padding: _pickedImage == null ? null : EdgeInsets.zero,
+                    child: _pickedImage == null
+                    ? const Icon(
                       CupertinoIcons.photo_camera_solid,
                       size: 30,
                       color: Colors.white,
-                    ),
+                    )
+                  : CircleAvatar(
+                    foregroundImage: FileImage(_pickedImage!),
+                    radius: 40,
+                  )  
                   ),
                 ),
               ),
               const SizedBox(height: largeSpace + regularSpace),
-              Text('약 이름',
-              style: Theme.of(context).textTheme.titleMedium,
+              Text(
+                '약 이름',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               TextFormField(
                 controller: _nameController,
@@ -64,7 +85,7 @@ class _AddMedicinePageState extends State<AddMedicinePage> {
                   hintStyle: Theme.of(context).textTheme.bodyMedium,
                   contentPadding: textFieldContentPadding,
                 ),
-              ),  
+              ),
             ],
           ),
         ),
